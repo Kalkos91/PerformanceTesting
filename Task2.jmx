@@ -13,19 +13,14 @@
             <stringProp name="Argument.value">localhost</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="delayInMs" elementType="Argument">
-            <stringProp name="Argument.name">delayInMs</stringProp>
-            <stringProp name="Argument.value">10000</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="user" elementType="Argument">
             <stringProp name="Argument.name">user</stringProp>
-            <stringProp name="Argument.value">admin</stringProp>
+            <stringProp name="Argument.value">Editor_Test_User</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="password" elementType="Argument">
             <stringProp name="Argument.name">password</stringProp>
-            <stringProp name="Argument.value">admin</stringProp>
+            <stringProp name="Argument.value">Editor_Test_User</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="path" elementType="Argument">
@@ -42,7 +37,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="NumberOfPosts" elementType="Argument">
             <stringProp name="Argument.name">NumberOfPosts</stringProp>
-            <stringProp name="Argument.value">100</stringProp>
+            <stringProp name="Argument.value">2000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="CreationDateUp" elementType="Argument">
@@ -56,6 +51,11 @@
             <stringProp name="Argument.value">01 01 1900</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Min Date in format dd MM yyyy</stringProp>
+          </elementProp>
+          <elementProp name="RandomDateIteration" elementType="Argument">
+            <stringProp name="Argument.name">RandomDateIteration</stringProp>
+            <stringProp name="Argument.value">100</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -85,7 +85,7 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${NumberOfPosts}</stringProp>
+          <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">0</stringProp>
@@ -95,45 +95,6 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Generate Date" enabled="true">
-          <stringProp name="BeanShellSampler.query">import java.text.DateFormat;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-String numberOfPostsText = vars.get(&quot;NumberOfPosts&quot;);
-int numberOfPosts = Integer.parseInt(numberOfPostsText);
-
-String randomDate = &quot;${__RandomDate(dd MM yyyy,${CreationDateDown},${CreationDateUp},en_EN,)}&quot;;
-DateFormat formatTo = new SimpleDateFormat(&quot;dd MM yyyy&quot;, Locale.ENGLISH);
-Date date = formatTo.parse(randomDate);
-
-var dateString = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).format(date);
-var hours = Integer.parseInt(&quot;${__Random(0,23)}&quot;);
-var minutes = Integer.parseInt(&quot;${__Random(0,59)}&quot;);
-var formatedHours = String.format(&quot;%02d&quot;, new Object[] {hours}); 
-var formatedMinutes = String.format(&quot;%02d&quot;, new Object[] {minutes}); 
-
-var creationDate = dateString + &quot; &quot; + formatedHours + &quot;:&quot; + formatedMinutes;
-print(creationDate);
-
-if(numberOfPosts == 100 || numberOfPosts == 1000 || numberOfPosts == 2000)
-{
-	if(numberOfPosts!= 100)
-	{
-		vars.put(&quot;CreationDate&quot;, creationDate);
-	}
-	
-}else
-{   
-	throw new Exception(&quot;&quot;);
-}
-
-</stringProp>
-          <stringProp name="BeanShellSampler.filename"></stringProp>
-          <stringProp name="BeanShellSampler.parameters"></stringProp>
-          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
-        </BeanShellSampler>
-        <hashTree/>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
@@ -255,13 +216,59 @@ if(numberOfPosts == 100 || numberOfPosts == 1000 || numberOfPosts == 2000)
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Make Post" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{&#xd;
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">${NumberOfPosts}</stringProp>
+        </LoopController>
+        <hashTree>
+          <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
+            <stringProp name="CounterConfig.start">0</stringProp>
+            <stringProp name="CounterConfig.end"></stringProp>
+            <stringProp name="CounterConfig.incr">1</stringProp>
+            <stringProp name="CounterConfig.name">iteration</stringProp>
+            <stringProp name="CounterConfig.format"></stringProp>
+            <boolProp name="CounterConfig.per_user">false</boolProp>
+          </CounterConfig>
+          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+            <stringProp name="IfController.condition">${__groovy(${iteration}&gt;=${RandomDateIteration})}</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+          </IfController>
+          <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Generate Date" enabled="true">
+              <stringProp name="BeanShellSampler.query">import java.text.DateFormat;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+String randomDate = &quot;${__RandomDate(dd MM yyyy,${CreationDateDown},${CreationDateUp},en_EN,)}&quot;;
+DateFormat formatTo = new SimpleDateFormat(&quot;dd MM yyyy&quot;, Locale.ENGLISH);
+Date date = formatTo.parse(randomDate);
+
+var dateString = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).format(date);
+var hours = Integer.parseInt(&quot;${__Random(0,23)}&quot;);
+var minutes = Integer.parseInt(&quot;${__Random(0,59)}&quot;);
+var formatedHours = String.format(&quot;%02d&quot;, new Object[] {hours}); 
+var formatedMinutes = String.format(&quot;%02d&quot;, new Object[] {minutes}); 
+
+var creationDate = dateString + &quot; &quot; + formatedHours + &quot;:&quot; + formatedMinutes;
+print(creationDate);
+vars.put(&quot;CreationDate&quot;, creationDate);
+
+</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Make Post" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
     &quot;Id&quot;: &quot;&quot;,&#xd;
     &quot;Title&quot;: &quot;New Post&quot;,&#xd;
     &quot;Author&quot;: &quot;Admin&quot;,&#xd;
@@ -274,34 +281,35 @@ if(numberOfPosts == 100 || numberOfPosts == 1000 || numberOfPosts == 2000)
     &quot;HasCommentsEnabled&quot;: true,&#xd;
     &quot;IsPublished&quot;: false&#xd;
 }</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${host}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/blog/api/posts</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-            <collectionProp name="HeaderManager.headers">
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.name">Content-Type</stringProp>
-                <stringProp name="Header.value">application/json; charset=utf-8</stringProp>
-              </elementProp>
-            </collectionProp>
-          </HeaderManager>
-          <hashTree/>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${host}</stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/blog/api/posts</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json; charset=utf-8</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="true">
           <boolProp name="displayJMeterProperties">false</boolProp>
