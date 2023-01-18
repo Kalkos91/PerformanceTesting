@@ -37,7 +37,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="NumberOfPosts" elementType="Argument">
             <stringProp name="Argument.name">NumberOfPosts</stringProp>
-            <stringProp name="Argument.value">2000</stringProp>
+            <stringProp name="Argument.value">100</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="CreationDateUp" elementType="Argument">
@@ -60,7 +60,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random Variable" enabled="true">
+      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Generate Length Of Post" enabled="true">
         <stringProp name="variableName">PostLength</stringProp>
         <stringProp name="outputFormat"></stringProp>
         <stringProp name="minimumValue">50</stringProp>
@@ -271,7 +271,7 @@ vars.put(&quot;CreationDate&quot;, creationDate);
                   <stringProp name="Argument.value">{&#xd;
     &quot;Id&quot;: &quot;&quot;,&#xd;
     &quot;Title&quot;: &quot;New Post&quot;,&#xd;
-    &quot;Author&quot;: &quot;Admin&quot;,&#xd;
+    &quot;Author&quot;: &quot;${user}&quot;,&#xd;
     &quot;Content&quot;: &quot;&lt;p&gt;${__RandomString(${PostLength},abcdefghijklmnoprt)}&lt;/p&gt;&quot;,&#xd;
     &quot;DateCreated&quot;: &quot;${CreationDate}&quot;,&#xd;
     &quot;Slug&quot;: &quot;new-post&quot;,&#xd;
