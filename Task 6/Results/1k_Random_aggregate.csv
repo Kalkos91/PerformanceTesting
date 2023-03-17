@@ -1,0 +1,19 @@
+Label,# Samples,Average,Min,Max,Std. Dev.,Error %,Throughput,Received KB/sec,Sent KB/sec,Avg. Bytes
+Thread Group:Open Home Page,682,482,6,117196,6510.78,0.733%,.64429,17.95,0.08,28530.7
+Thread Group:Open Large Calendar,624,202,8,117223,4688.33,0.160%,.59070,16.16,0.08,28021.3
+Thread Group:Use First Post,1466,0,0,1,0.35,0.000%,1.56147,0.00,0.00,.0
+Thread Group:Get First or Random Post,1466,718,7,117105,8939.22,0.614%,1.39055,39.01,0.17,28723.4
+Thread Group:Open Post,1457,818,8,117456,9615.64,0.686%,1.38339,36.18,0.19,26784.0
+Thread Group:Add Comment,720,339,5,117022,6143.53,0.417%,.68436,1.60,1.29,2391.6
+Thread Group:Open Home Page Transaction,542,260,7,116654,5004.73,0.185%,.51207,35.47,0.41,70938.6
+Thread Group:Generate Date,631,2,0,37,2.06,0.000%,.67639,0.00,0.00,.0
+Thread Group:Open Random Date,1262,381,5,115968,6517.61,0.317%,1.20082,22.82,0.16,19462.2
+Thread Group:Open Predefined Date,630,199,6,117428,4674.21,0.159%,.60369,16.43,0.08,27870.1
+Thread Group:Open Predefined Date Transaction,529,482,7,116448,7114.89,0.378%,.50637,34.78,0.44,70343.2
+Thread Group:Search By Name,635,383,5,117212,6546.65,0.315%,.61031,10.96,0.08,18391.0
+Thread Group:Search By Name -> Open Post,523,1147,6,117477,11349.01,0.956%,.50213,23.01,0.37,46917.2
+Thread Group:Open Large Calendar -> Open Post,515,488,8,117473,7260.37,0.583%,.49497,28.34,0.40,58628.0
+Thread Group:Open Contacts,748,322,5,117202,6007.13,0.267%,.72043,13.99,0.09,19890.4
+Thread Group:Non Random,513,209,63,1946,121.39,0.195%,.54560,176.18,2.31,330665.1
+Thread Group:Use Random Post,739,0,0,1,0.36,0.000%,.80371,0.00,0.00,.0
+TOTAL,13682,394,0,117477,6507.29,0.358%,12.92413,450.62,5.85,35703.6
